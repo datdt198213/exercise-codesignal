@@ -14,6 +14,8 @@ class Exercise_codesignal
         Console.WriteLine(solve);
     }
 
+
+
     static int compare(string s1, string s2)
     {
         for (int i = 0; i < s1.Length && i < s2.Length; ++i)
@@ -44,14 +46,19 @@ class Exercise_codesignal
 
     static bool solution58(string filename1, string filename2)
     {
-        int compare1 = compare(filename1, filename2); 
+        bool result = true;
+        int compare1 = compare(filename1, filename2);
 
         filename1 = filename1.ToLower();
         filename2 = filename2.ToLower();
 
         int compare2 = compare(filename1, filename2);
 
-        return compare1 != compare2;
+        if (compare1 == compare2)
+        {
+            result = false;
+        }
+        return result;
     }
     static bool solution57(string inputString)
     {
@@ -307,7 +314,116 @@ class Exercise_codesignal
         return lastNumberedPage - 1;
     }
 
-    static int solution11(int a, int b, int c)
+    static int solution1(int year)
+    {
+        int century = 1;
+        if (year % 100 == 0)
+        {
+            century = year / 100;
+        }
+        else
+        {
+            century = (year / 100) + 1;
+        }
+        return century;
+    }
+
+    static int solution2(int n)
+    {
+        return (int)(Math.Pow(10, n) - 1);
+    }
+
+    static int solution3(int n, int m)
+    {
+        int pieces = m / n;
+        pieces *= n;
+        return pieces;
+    }
+
+    static int solution4(int nCols, int nRows, int col, int row)
+    {
+        int count = 0;
+        for (int i = col; i < nCols; i++)
+        {
+            for (int j = row; j < nRows; j++)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    static int solution5(int divisor, int bound)
+    {
+        int N = bound / divisor;
+        N *= divisor;
+        return N;
+    }
+
+    static int solution6(int n, int firstNumber)
+    {
+        int center = n / 2;
+        int result = 0;
+        if (firstNumber < center) result = firstNumber + center;
+        else if (firstNumber > center) result = firstNumber - center; ;
+        return result;
+    }
+
+    static int solution7(int n)
+    {
+        int minute = n % 60;
+        int hour = n / 60;
+        int result = minute % 10 + minute / 10 + hour % 10 + hour / 10;
+        return result;
+    }
+
+    static int solution8(int min1, int min2_10, int min11, int s)
+    {
+        int longestCall = 0;
+        if (s >= min1)
+        {
+            s -= min1;          // first second
+            longestCall += 1;
+        }
+        int i = 2;
+        while (i <= 10 && s >= min2_10)
+        {
+            s -= min2_10;       // 2 - 10 seconds
+            longestCall += 1;
+            i++;
+        }
+
+        if (s >= min11 && longestCall == 10) longestCall += (s / min11);
+        return longestCall;
+    }
+    static bool solution9(int experience, int threshold, int reward)
+    {
+        int total = experience + reward;
+        return total == threshold ? true : false;
+    }
+
+    static int solution10(int value1, int weight1, int value2, int weight2, int maxW)
+    {
+        int result = 0;
+        int totalWeight = weight1 + weight2;
+        if (totalWeight <= maxW) result = value1 + value2;
+        else if (weight1 <= maxW)
+        {
+            if (weight2 >= maxW) result = value1;
+            else if (value1 > value2) result = value1;
+            else result = value2;
+        }
+        else if (weight2 <= maxW)
+        {
+            if (weight1 >= maxW) result = value2;
+            else if (value2 > value1) result = value2;
+            else result = value1;
+        }
+        return result;
+    }
+
+
+static int solution11(int a, int b, int c)
     {
         if (a == b) return c;
         else if (a == c) return b;
